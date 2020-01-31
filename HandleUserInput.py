@@ -11,16 +11,6 @@ def user_input():
         user_input = user_input.split()
         print(user_input)
 
-
-
-def split_input(query_string):
-    input_list = query_string.split()
-    for word in input_list:
-        if "\"" in word:
-            query_string.find("\"")
-
-
-
 # Main function to run the user input function.
 def main():
 
