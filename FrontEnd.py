@@ -41,3 +41,15 @@ def load():
     conn.commit() # save the changes
     # close the connection
     conn.close()
+
+def example():
+    # open a connection to the database
+    db_file = "football.db"
+    conn = sqlite3.connect(db_file)
+    c = conn.cursor()
+    
+    sql_command = "select p.name from teams t, players p where t.team = p.team and t.team = 'rams';"
+    for row in c.execute(sql_command):
+        print(row[0])
+      
+    conn.close()
