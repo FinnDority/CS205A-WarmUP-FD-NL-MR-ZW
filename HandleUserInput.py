@@ -7,6 +7,16 @@ def user_input():
 
         print()
 
+
+
+def split_input(querey_string):
+    input_list = querey_string.split()
+    for word in input_list:
+        if "\"" in word:
+            querey_string.find("\"")
+
+
+
 # Main function to run the user input function.
 def main():
 	user_input()
