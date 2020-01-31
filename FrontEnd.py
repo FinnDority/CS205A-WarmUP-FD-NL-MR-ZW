@@ -29,13 +29,13 @@ def load():
     
 
     # do the same steps as above for the other table
-    c.execute("CREATE TABLE players (rank INTEGER, name VARCHAR(32), position VARCHAR(32), team VARCHAR(32), PRIMARY KEY (rank),"
+    c.execute("CREATE TABLE players (rank INTEGER, player VARCHAR(32), position VARCHAR(32), team VARCHAR(32), PRIMARY KEY (rank),"
               "FOREIGN KEY (team) REFERENCES teams (team))")
     
     with open('players.csv', newline='', encoding='utf-8-sig') as f:
         reader = csv.reader(f)
         for row in reader:
-            c.execute("INSERT INTO players (rank, name, position, team) VALUES (?, ?, ?, ?)",
+            c.execute("INSERT INTO players (rank, player, position, team) VALUES (?, ?, ?, ?)",
                       (int(row[0]), row[1].lower(), row[2].lower(), row[3].lower(),))
     
     conn.commit() # save the changes
@@ -48,7 +48,7 @@ def example():
     conn = sqlite3.connect(db_file)
     c = conn.cursor()
     
-    sql_command = "select p.name from teams t, players p where t.team = p.team and t.team = 'rams';"
+    sql_command = "select p.player from teams t, players p where t.team = p.team and t.team = 'rams';"
     for row in c.execute(sql_command):
         print(row[0])
       
