@@ -9,11 +9,11 @@ def user_input():
 
 
 
-def split_input(querey_string):
-    input_list = querey_string.split()
+def split_input(query_string):
+    input_list = query_string.split()
     for word in input_list:
         if "\"" in word:
-            querey_string.find("\"")
+            query_string.find("\"")
 
 
 
