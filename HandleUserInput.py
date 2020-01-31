@@ -5,7 +5,7 @@ def user_input():
 	       + ' about players and teams.')
 	print('**********************************************')
 
-        print()
+	print()
 
 
 
