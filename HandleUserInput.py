@@ -1,3 +1,16 @@
+"""
+KeyWords
+rank
+plyer_name
+position
+team
+team_name
+location
+stadium
+capacity
+confrence
+region
+"""
 def user_input():
 
         print('Welcome to the NFL teams database\n'
@@ -9,7 +22,9 @@ def user_input():
 
         user_input = input()
         user_input = user_input.split()
-        print(user_input)
+
+
+
 
 # Main function to run the user input function.
 def main():
