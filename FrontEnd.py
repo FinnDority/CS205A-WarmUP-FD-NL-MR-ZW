@@ -68,11 +68,11 @@ def help():
     print('  stadium team_name "Bills"')
     print("      -prints the stadium name of the Bills team")
     print("      -NOTE: double quotation marks are required ")
-    print("             around values being searched for"
+    print("             around values being searched for")
     print()
     print("Example of valid query:")
     print('  team_name player_name "Aaron Donald"')
-    print("      -prints the team that Aaron Donald belongs to"))
+    print("      -prints the team that Aaron Donald belongs to")
     print()
     print("Example of valid query:")
     print('  team_name conference "afc" region "east"')

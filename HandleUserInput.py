@@ -11,6 +11,8 @@ capacity
 confrence
 region
 """
+import FrontEnd
+
 def user_input():
         KEYS = ["rank", "player_name", "position", "team", "team_name", "location", "stadium", "capacity", "conference", "region"]
         key_words = []
@@ -26,9 +28,10 @@ def user_input():
 
         user_in = user_in.replace('%', '')
         if user_in.lower() == "help":
-            # call help function
+            help()
         if user_in.lower() == "load data":
-            # call load data function
+            exit(0)
+        # call load data function
         if user_in.lower() == "quit":
             exit(0)
 
