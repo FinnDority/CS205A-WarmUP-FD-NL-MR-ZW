@@ -85,3 +85,6 @@ def help():
     print("Valid Column Names:")
     print("  team_name, location, stadium, capacity, conference, division,") 
     print("  rank, player_name, position")
+    print()
+    print("NOTE: load data must be run before any queries can be executed")
+    
