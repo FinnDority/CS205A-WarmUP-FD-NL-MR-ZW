@@ -1,9 +1,8 @@
 """
 KeyWords
 rank
-plyer_name
+player_name
 position
-team
 team_name
 location
 stadium
@@ -14,15 +13,11 @@ region
 from FrontEnd import load, help
 
 def user_input():
-        KEYS = ["rank", "player_name", "position", "team", "team_name", "location", "stadium", "capacity", "conference", "region"]
+        KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
         key_words = []
         value_words = []
 
-        print   ('Welcome to the NFL teams database\n'
-	        + 'You will be prompted below to enter information'
-                + ' about players and teams.'
-                + '\nIf you need help please type: help.'
-                + '\nPlease enter your query below.\n')
+
 
         user_in = input()
 
@@ -52,6 +47,11 @@ def user_input():
 
 # Main function to run the user input function.
 def main():
+    print   ('Welcome to the NFL teams database\n'
+	        + 'You will be prompted below to enter information'
+        + ' about players and teams.'
+        + '\nIf you need help please type: help'
+        + '\nPlease enter your query below.\n')
 
     user_input()
 

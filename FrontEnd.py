@@ -83,9 +83,10 @@ def help():
     print("      -prints teams located in the east along with their ranks")
     print()
     print("Valid Column Names:")
-    print("  team_name, location, stadium, capacity, conference, division,") 
-    print("  rank, player_name, position")
+    print("  team_name, location, stadium, capacity, conference, region,") 
+    print("   division, rank, player_name, position")
     print()
     print("NOTE: load data must be run before any queries can be executed")
+    print()
 
 help()
