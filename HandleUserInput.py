@@ -48,9 +48,7 @@ def user_input():
                                         key_words.append(i)
                                         value_words.append(user_in[user_in.index(i) + 1])
 
-        print(value_words)
-        print(key_words)
-
+        return key_words, value_words
 
 # Main function to run the user input function.
 def main():

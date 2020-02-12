@@ -87,4 +87,5 @@ def help():
     print("  rank, player_name, position")
     print()
     print("NOTE: load data must be run before any queries can be executed")
-    
+
+help()
