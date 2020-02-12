@@ -11,6 +11,9 @@ capacity
 confrence
 region
 """
+from FrontEnd import load, help
+
+
 def user_input():
         KEYS = ["rank", "player_name", "position", "team", "team_name", "location", "stadium", "capacity", "conference", "region"]
         key_words = []
@@ -25,10 +28,11 @@ def user_input():
         user_in = input()
 
         user_in = user_in.replace('%', '')
+
         if user_in.lower() == "help":
-            # call help function
+            help()
         if user_in.lower() == "load data":
-            # call load data function
+            load()
         if user_in.lower() == "quit":
             exit(0)
 
@@ -40,14 +44,7 @@ def user_input():
         It's also easier to have the user input the players names without any spaces so then
         the two lists have the key words and values synced at the same indexes.
         """
-        for i in user_in:
-            for j in range(0, len(KEYS)):
-                if (i == KEYS[j]):
-                    key_words.append(i)
-                    value_words.append(user_in[user_in.index(i)])
 
-        print(key_words)
-        print(value_words)
 
 # Main function to run the user input function.
 def main():
