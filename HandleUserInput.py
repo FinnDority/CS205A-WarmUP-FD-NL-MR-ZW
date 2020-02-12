@@ -23,6 +23,16 @@ def user_input():
         print('Please enter your query below.')
 
         user_in = input()
+
+        user_in = user_in.replace('%', '')
+        if user_in.lower() == "help":
+            # call help function
+        if user_in.lower() == "load data":
+            # call load data function
+        if user_in.lower() == "quit":
+            exit(0)
+
+
         user_in = user_in.split()
 
         """
