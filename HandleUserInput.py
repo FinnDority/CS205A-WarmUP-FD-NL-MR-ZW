@@ -28,7 +28,7 @@ def user_input():
 
         if user_in.lower() == "help":
             help()
-            user_input()
+            
         elif user_in.lower() == "load data":
             load()
             return
@@ -45,7 +45,10 @@ def user_input():
                         if j in i:
                                 if i not in key_words:
                                         key_words.append(i)
-                                        value_words.append(user_in[user_in.index(i) + 1])
+                                        try:
+                                            value_words.append(user_in[user_in.index(i) + 1])
+                                        except:
+                                            print("Invalid query. Expected specific value after " + i)
 
 
         for i in range(len(key_words)):
@@ -54,7 +57,10 @@ def user_input():
                         if j not in KEYS:
                                 print("Your entered a keyword that was not valid.")
                                 return
-
+        if len(key_words[0].split() + key_words[1:]) <= 1:
+            print("Invalid query. Please enter both display column(s) and search criteria.")
+            return
+        
         return key_words[0].split() + key_words[1:],  value_words
 
 # Main function to run the user input function.
