@@ -46,7 +46,11 @@ def user_input():
                                 if i not in key_words:
                                         key_words.append(i)
                                         value_words.append(user_in[user_in.index(i) + 1])
+                        elif j not in i:
+                                print("That is not a valid keyword please enter a valid query.")
+                                return
 
+        print(key_words[0].split() + key_words[1:],  value_words)
         return key_words[0].split() + key_words[1:],  value_words
 
 # Main function to run the user input function.
