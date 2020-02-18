@@ -20,20 +20,21 @@ def user_input():
 
 
         user_in = input()
-
-        user_in = user_in.replace('%', '')
-
         if user_in.lower() == "help":
             help()
             user_input()
         if user_in.lower() == "load data":
             load()
-            exit(0)
+            return
+
         # call load data function
         if user_in.lower() == "quit":
             exit(0)
 
+        # while user_in != '' or not any(word in user_in for word in KEYS):
+        #     user_in = input("Please enter a valid entry: ")
 
+        user_in = user_in.replace('%', '')
         user_in = user_in.split("\"")
 
         for i in user_in:
@@ -53,7 +54,8 @@ def main():
         + '\nIf you need help please type: help'
         + '\nPlease enter your query below.\n')
 
-    user_input()
+    while True:
+        user_input()
 
 
 # start of the main function
