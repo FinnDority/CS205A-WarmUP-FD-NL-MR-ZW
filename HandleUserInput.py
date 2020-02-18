@@ -20,15 +20,18 @@ def user_input():
 
 
         user_in = input()
+
+        user_in = user_in.replace('%', '')
+
         if user_in.lower() == "help":
             help()
             user_input()
-        if user_in.lower() == "load data":
+        elif user_in.lower() == "load data":
             load()
             return
 
         # call load data function
-        if user_in.lower() == "quit":
+        elif user_in.lower() == "quit":
             exit(0)
 
         # while user_in != '' or not any(word in user_in for word in KEYS):
