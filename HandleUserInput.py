@@ -14,14 +14,17 @@ from FrontEnd import load, help
 
 def user_input():
         KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
+        SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
         key_words = []
         value_words = []
 
 
 
         user_in = input()
-
         user_in = user_in.replace('%', '')
+        while user_in != '' and not any(word in user_in for word in KEYS) and user_in not in SPECIAL_FUNCTIONS:
+            user_in = input("Please enter a valid entry: ")
+
 
         if user_in.lower() == "help":
             help()
@@ -34,10 +37,7 @@ def user_input():
         elif user_in.lower() == "quit":
             exit(0)
 
-        # while user_in != '' or not any(word in user_in for word in KEYS):
-        #     user_in = input("Please enter a valid entry: ")
 
-        user_in = user_in.replace('%', '')
         user_in = user_in.split("\"")
 
         for i in user_in:
@@ -46,11 +46,15 @@ def user_input():
                                 if i not in key_words:
                                         key_words.append(i)
                                         value_words.append(user_in[user_in.index(i) + 1])
-                        elif j not in i:
-                                print("That is not a valid keyword please enter a valid query.")
+
+
+        for i in range(len(key_words)):
+                test = key_words[i].split()
+                for j in test:
+                        if j not in KEYS:
+                                print("Your entered a keyword that was not valid.")
                                 return
 
-        print(key_words[0].split() + key_words[1:],  value_words)
         return key_words[0].split() + key_words[1:],  value_words
 
 # Main function to run the user input function.
