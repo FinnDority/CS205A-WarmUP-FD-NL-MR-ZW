@@ -26,11 +26,10 @@ def user_input():
         if user_in.lower() == "help":
             help()
             user_input()
-        if user_in.lower() == "load data":
+        elif user_in.lower() == "load data":
             load()
-            exit(0)
         # call load data function
-        if user_in.lower() == "quit":
+        elif user_in.lower() == "quit":
             exit(0)
 
 
