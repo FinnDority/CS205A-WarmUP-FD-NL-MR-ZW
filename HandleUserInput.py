@@ -20,8 +20,10 @@ def user_input():
 
         user_in = input("Query:")
         user_in = user_in.replace('%', '')
+        user_in = user_in.lower()
         while user_in != '' and not any(word in user_in for word in KEYS) and user_in not in SPECIAL_FUNCTIONS:
-            user_in = input("Please enter a valid entry: ")
+            user_in = input("Please enter a quiery wi")
+            user_in = user_in.lower()
 
         if user_in.lower() == "help":
             help()
