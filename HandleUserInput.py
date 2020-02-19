@@ -86,8 +86,9 @@ def parse_user_input(key_words, value_words):
             if (i < len(key_words) - 1):
                 command += " AND "
 
-
+    print(command)
     cursor = conn.execute(command)
+    print(cursor)
     conn.close()
 
 
@@ -100,7 +101,8 @@ def main():
 
 
     while True:
-        parse_user_input(user_input())
+        keys, values = user_input()
+        parse_user_input(keys, values)
 
 
 # start of the main function
