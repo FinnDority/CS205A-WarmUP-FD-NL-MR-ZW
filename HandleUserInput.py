@@ -73,12 +73,21 @@ def parse_user_input(key_words, value_words):
     command += key_words[0]
     command += " FROM teams t, players p"
     if (len(key_words) > 1):
+        command += " WHERE "
         for i in range(1, len(key_words)):
-            command += " WHERE "
-            command +=
+            command += key_words[i]
+            command += "=\""
+            if (i >= len(value_words)):
+                print("ERROR, VALUES NOT PROVIDED")
+                command += "*"
+            else:
+                command += value_words[i]
+            command += "\""
+            if (i < len(key_words) - 1):
+                command += " AND "
 
 
-    # cursor = conn.execute()
+    cursor = conn.execute(command)
     conn.close()
 
 
@@ -91,7 +100,7 @@ def main():
 
 
     while True:
-        user_input()
+        parse_user_input(user_input())
 
 
 # start of the main function
