@@ -83,8 +83,6 @@ def parse_user_input(key_words, value_words):
             else:
                 command += value_words[i-1]
             command += "\""
-            # if (i < len(key_words) - 1):
-            #     command += " AND "
 
     print(command)
     # cursor = conn.execute(command)
