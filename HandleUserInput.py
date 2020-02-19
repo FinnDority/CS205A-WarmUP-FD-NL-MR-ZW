@@ -32,7 +32,7 @@ def user_input():
 
         elif user_in.lower() == "load data":
             load()
-            return
+            return []
 
         # call load data function
         elif user_in.lower() == "quit":
@@ -57,10 +57,10 @@ def user_input():
                 for j in test:
                         if j not in KEYS:
                                 print("Your entered a keyword that was not valid.")
-                                return
+                                return [], []
         if len(key_words[0].split() + key_words[1:]) <= 1:
             print("Invalid query. Please enter both display column(s) and search criteria.")
-            return
+            return [], []
 
         return key_words[0].split() + key_words[1:],  value_words
 
