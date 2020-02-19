@@ -69,6 +69,9 @@ def user_input():
 # Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
+    if key_words == [] or value_words == []:
+        return
+    
     db_file = "football.db"
     conn = sqlite3.connect(db_file)
     if (len(key_words) > 1):
@@ -83,7 +86,7 @@ def parse_user_input(key_words, value_words):
                 print("ERROR, VALUES NOT PROVIDED")
                 command += "*"
             else:
-                command += value_words[i-1]
+                command += (value_words[i-1].lower())
             command += "\""
         print(command)
         # cursor = conn.execute(command)
