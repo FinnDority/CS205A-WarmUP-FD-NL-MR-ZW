@@ -63,10 +63,20 @@ def user_input():
             print("Invalid query. Please enter both display column(s) and search criteria.")
             return [], []
 
-        for i in key_words[0].split():
-                if i == "team_name":
-                        i = "t.team_name"
-                        print(i)
+        # for i in key_words[0].split():
+        #         if i == "team_name":
+        #             i = "t.team_name"
+        #             print(i)
+        # print(key_words)
+        new_keys = key_words[0].split()
+        if "team_name" in new_keys:
+            index = new_keys.index("team_name")
+            new_keys[index] = "t.team_name"
+            print(key_words)
+            key_words[0] = ""
+            for i in range(len(new_keys)):
+                key_words[0] += " " + new_keys[i]
+            print(key_words[0])
 
         return key_words[0].split() + key_words[1:],  value_words
 
