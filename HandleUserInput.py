@@ -15,9 +15,11 @@ import sqlite3
 
 # the ultimate sin: a global variable oh god
 conn = 0  # 0 acts as a sentinel value
+loaded = 0
 
 def user_input():
         global conn
+        global loaded
         KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
         SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
         key_words = []
@@ -37,6 +39,7 @@ def user_input():
 
 
         elif user_in.lower() == "load data":
+            loaded = 1
             load()
             return [], []
 
@@ -45,7 +48,10 @@ def user_input():
             if conn != 0:
                 conn.close()
             exit(0)
-
+        
+        if loaded == 0:
+            print("User must load the database before asking a query.")
+            return [], []
 
         user_in = user_in.split("\"")
 
