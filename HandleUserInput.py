@@ -30,9 +30,10 @@ def user_input():
         if user_in.lower() == "help":
             help()
 
+
         elif user_in.lower() == "load data":
             load()
-            return []
+            return [], []
 
         # call load data function
         elif user_in.lower() == "quit":

@@ -89,4 +89,4 @@ def help():
     print("NOTE: load data must be run before any queries can be executed")
     print()
 
-help()
+load()
