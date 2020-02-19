@@ -81,7 +81,7 @@ def parse_user_input(key_words, value_words):
                 print("ERROR, VALUES NOT PROVIDED")
                 command += "*"
             else:
-                command += value_words[i-1]
+                command += (value_words[i-1].lower())
             command += "\""
         print(command)
         # cursor = conn.execute(command)
