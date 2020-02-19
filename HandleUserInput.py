@@ -32,7 +32,7 @@ def user_input():
 
         elif user_in.lower() == "load data":
             load()
-            return
+            return []
 
         # call load data function
         elif user_in.lower() == "quit":
@@ -57,10 +57,10 @@ def user_input():
                 for j in test:
                         if j not in KEYS:
                                 print("Your entered a keyword that was not valid.")
-                                return
+                                return [], []
         if len(key_words[0].split() + key_words[1:]) <= 1:
             print("Invalid query. Please enter both display column(s) and search criteria.")
-            return
+            return [], []
 
         return key_words[0].split() + key_words[1:],  value_words
 
@@ -73,9 +73,9 @@ def parse_user_input(key_words, value_words):
     command += key_words[0]
     command += " FROM teams t, players p"
     if (len(key_words) > 1):
-        command += " WHERE "
+        command += " WHERE t.team_name = p.team_name "
         for i in range(1, len(key_words)):
-            command += key_words[i]
+            command += " AND " + key_words[i]
             command += "=\""
             if (i >= len(value_words)):
                 print("ERROR, VALUES NOT PROVIDED")
@@ -83,12 +83,15 @@ def parse_user_input(key_words, value_words):
             else:
                 command += value_words[i]
             command += "\""
-            if (i < len(key_words) - 1):
-                command += " AND "
+            # if (i < len(key_words) - 1):
+            #     command += " AND "
 
     print(command)
-    cursor = conn.execute(command)
-    print(cursor)
+    # cursor = conn.execute(command)
+    c = conn.cursor()
+    for row in c.execute(command):
+        print(row)
+
     conn.close()
 
 
