@@ -67,6 +67,9 @@ def user_input():
 # Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
+    if key_word == [] or value_word == []:
+        return
+    
     db_file = "football.db"
     conn = sqlite3.connect(db_file)
     if (len(key_words) > 1):
