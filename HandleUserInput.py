@@ -67,7 +67,7 @@ def user_input():
 # Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
-    if key_word == [] or value_word == []:
+    if key_words == [] or value_words == []:
         return
     
     db_file = "football.db"
