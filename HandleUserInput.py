@@ -13,7 +13,11 @@ region
 from FrontEnd import load, help
 import sqlite3
 
+# the ultimate sin: a global variable oh god
+conn = 0  # 0 acts as a sentinel value
+
 def user_input():
+        global conn
         KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
         SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
         key_words = []
@@ -38,6 +42,8 @@ def user_input():
 
         # call load data function
         elif user_in.lower() == "quit":
+            if conn != 0:
+                conn.close()
             exit(0)
 
 
@@ -73,11 +79,14 @@ def user_input():
 # Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
+    global conn
     if key_words == [] or value_words == []:
         return
-    
-    db_file = "football.db"
-    conn = sqlite3.connect(db_file)
+
+    if (conn == 0):
+        db_file = "football.db"
+        conn = sqlite3.connect(db_file)
+
     if (len(key_words) > 1):
         command = "SELECT "
         command += key_words[0]
@@ -101,8 +110,6 @@ def parse_user_input(key_words, value_words):
         c = conn.cursor()
         for row in c.execute(command):
             print(row)
-
-    conn.close()
 
 
 def main():
