@@ -53,7 +53,6 @@ def user_input():
                                         except:
                                             print("Invalid query. Expected specific value after " + i)
 
-
         for i in range(len(key_words)):
                 test = key_words[i].split()
                 for j in test:
@@ -63,6 +62,11 @@ def user_input():
         if len(key_words[0].split() + key_words[1:]) <= 1:
             print("Invalid query. Please enter both display column(s) and search criteria.")
             return [], []
+
+        for i in key_words[0].split():
+                if i == "team_name":
+                        i = "t.team_name"
+                        print(i)
 
         return key_words[0].split() + key_words[1:],  value_words
 
