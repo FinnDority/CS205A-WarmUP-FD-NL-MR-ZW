@@ -13,7 +13,13 @@ region
 from FrontEnd import load, help
 import sqlite3
 
+# the ultimate sin: a global variable oh god
+conn = 0  # 0 acts as a sentinel value
+loaded = 0
+
 def user_input():
+        global conn
+        global loaded
         KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
         SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
         key_words = []
@@ -33,13 +39,19 @@ def user_input():
 
 
         elif user_in.lower() == "load data":
+            loaded = 1
             load()
             return [], []
 
         # call load data function
         elif user_in.lower() == "quit":
+            if conn != 0:
+                conn.close()
             exit(0)
-
+        
+        if loaded == 0:
+            print("User must load the database before asking a query.")
+            return [], []
 
         user_in = user_in.split("\"")
 
@@ -83,11 +95,14 @@ def user_input():
 # Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
+    global conn
     if key_words == [] or value_words == []:
         return
-    
-    db_file = "football.db"
-    conn = sqlite3.connect(db_file)
+
+    if (conn == 0):
+        db_file = "football.db"
+        conn = sqlite3.connect(db_file)
+
     if (len(key_words) > 1):
         command = "SELECT "
         command += key_words[0]
@@ -95,20 +110,22 @@ def parse_user_input(key_words, value_words):
         command += " WHERE t.team_name = p.team_name"
         for i in range(1, len(key_words)):
             command += " AND " + key_words[i]
-            command += "=\""
             if (i > len(value_words)):
                 print("ERROR, VALUES NOT PROVIDED")
                 command += "*"
             else:
-                command += (value_words[i-1].lower())
-            command += "\""
+                if (value_words[i-1][0] != "<" and value_words[i-1][0] != ">"):
+                    command += "=\""
+                    command += (value_words[i-1].lower())
+                    command += "\""
+                else:
+                    command += (value_words[i - 1].lower())
+
         print(command)
         # cursor = conn.execute(command)
         c = conn.cursor()
         for row in c.execute(command):
             print(row)
-
-    conn.close()
 
 
 def main():
