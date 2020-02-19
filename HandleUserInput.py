@@ -32,7 +32,7 @@ def user_input():
 
         elif user_in.lower() == "load data":
             load()
-            return []
+            return [], []
 
         # call load data function
         elif user_in.lower() == "quit":
