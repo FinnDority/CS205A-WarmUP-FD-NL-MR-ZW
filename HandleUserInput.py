@@ -69,10 +69,10 @@ def user_input():
 def parse_user_input(key_words, value_words):
     db_file = "football.db"
     conn = sqlite3.connect(db_file)
-    command = "SELECT "
-    command += key_words[0]
-    command += " FROM teams t, players p"
     if (len(key_words) > 1):
+        command = "SELECT "
+        command += key_words[0]
+        command += " FROM teams t, players p"
         command += " WHERE t.team_name = p.team_name"
         for i in range(1, len(key_words)):
             command += " AND " + key_words[i]
@@ -83,12 +83,11 @@ def parse_user_input(key_words, value_words):
             else:
                 command += value_words[i-1]
             command += "\""
-
-    print(command)
-    # cursor = conn.execute(command)
-    c = conn.cursor()
-    for row in c.execute(command):
-        print(row)
+        print(command)
+        # cursor = conn.execute(command)
+        c = conn.cursor()
+        for row in c.execute(command):
+            print(row)
 
     conn.close()
 
