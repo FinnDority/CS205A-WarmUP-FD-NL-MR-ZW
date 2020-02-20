@@ -17,75 +17,86 @@ import sqlite3
 conn = 0  # 0 acts as a sentinel value
 loaded = 0
 
+
 def user_input():
-        global conn
-        global loaded
-        KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
-        SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
-        key_words = []
-        value_words = []
+    """
+    Function to split user input into two lists with respective meaning to parse into SQL format.
+    :return: List of keywords and list of value words
+    """
+    global conn
+    global loaded
 
+    # Initialize lists of possible keywords for query
+    KEYS = ["rank", "player_name", "position", "team_name", "location", "stadium", "capacity", "conference", "region"]
+    SPECIAL_FUNCTIONS = ['help', 'load data', 'quit']
+    key_words = []
+    value_words = []
 
+    # Get and validate user input.
+    # Not allowing % character for security purposes
+    user_in = input("Query: ")
+    user_in = user_in.replace('%', '')
+    while user_in != '' and not any(word in user_in for word in KEYS) and user_in not in SPECIAL_FUNCTIONS:
+        user_in = input("Please enter a valid entry: ")
 
-        user_in = input("Query: ")
-        user_in = user_in.replace('%', '')
-        while user_in != '' and not any(word in user_in for word in KEYS) and user_in not in SPECIAL_FUNCTIONS:
-            user_in = input("Please enter a valid entry: ")
+    # Check input for special function commands
+    if user_in.lower() == "help":
+        help()
+        return [], []
 
+    elif user_in.lower() == "load data":
+        loaded = 1
+        load()
+        return [], []
 
-        if user_in.lower() == "help":
-            help()
-            return [],[]
+    elif user_in.lower() == "quit":
+        if conn != 0:
+            conn.close()
+        exit(0)
 
+    # Check for loaded database
+    if loaded == 0:
+        print("User must load the database before asking a query.")
+        return [], []
 
-        elif user_in.lower() == "load data":
-            loaded = 1
-            load()
-            return [], []
+    # Split to determine value input
+    user_in = user_in.split("\"")
 
-        # call load data function
-        elif user_in.lower() == "quit":
-            if conn != 0:
-                conn.close()
-            exit(0)
-        
-        if loaded == 0:
-            print("User must load the database before asking a query.")
-            return [], []
+    # Place words in respective lists or issue error for invalid query
+    for i in user_in:
+        for j in KEYS:
+            if j in i:
+                if i not in key_words:
+                    key_words.append(i)
+                    try:
+                        value_words.append(user_in[user_in.index(i) + 1])
+                    except:
+                        print("Invalid query. Expected specific value after " + i)
 
-        user_in = user_in.split("\"")
+    # Check for appropriate keyword use
+    for i in range(len(key_words)):
+        test = key_words[i].split()
+        for j in test:
+            if j not in KEYS:
+                print("Your entered a keyword that was not valid.")
+                return [], []
 
-        for i in user_in:
-                for j in KEYS:
-                        if j in i:
-                                if i not in key_words:
-                                        key_words.append(i)
-                                        try:
-                                            value_words.append(user_in[user_in.index(i) + 1])
-                                        except:
-                                            print("Invalid query. Expected specific value after " + i)
+    if len(key_words[0].split() + key_words[1:]) <= 1:
+        print("Invalid query. Please enter both display column(s) and search criteria.")
+        return [], []
 
-        for i in range(len(key_words)):
-                test = key_words[i].split()
-                for j in test:
-                        if j not in KEYS:
-                                print("Your entered a keyword that was not valid.")
-                                return [], []
-        if len(key_words[0].split() + key_words[1:]) <= 1:
-            print("Invalid query. Please enter both display column(s) and search criteria.")
-            return [], []
+    # Fix for team_name not adding correct prefix
+    new_keys = key_words[0].split()
+    if "team_name" in new_keys:
+        index = new_keys.index("team_name")
+        new_keys[index] = "t.team_name"
+        key_words[0] = ""
+        for i in range(len(new_keys)):
+            key_words[0] += " " + new_keys[i]
 
-        new_keys = key_words[0].split()
-        if "team_name" in new_keys:
-            index = new_keys.index("team_name")
-            new_keys[index] = "t.team_name"
-            key_words[0] = ""
-            for i in range(len(new_keys)):
-                key_words[0] += " " + new_keys[i]
+    # Returns the two lists with correct words
+    return key_words[0].split() + key_words[1:],  value_words
 
-        return key_words[0].split() + key_words[1:],  value_words
-
-# Main function to run the user input function.
 
 def parse_user_input(key_words, value_words):
     global conn
@@ -129,8 +140,8 @@ def parse_user_input(key_words, value_words):
 
 
 def main():
-    print   ('Welcome to the NFL teams database\n'
-	        + 'You will be prompted below to enter information'
+    print('Welcome to the NFL teams database\n'
+	    + 'You will be prompted below to enter information'
         + ' about players and teams.'
         + '\nIf you need help please type: help'
         + '\nPlease enter your query below.\n')
