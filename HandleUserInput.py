@@ -106,20 +106,27 @@ def parse_user_input(key_words, value_words):
     if (len(key_words) > 1):
         command = "SELECT "
         command += key_words[0]
+        if len(key_words) > (len(value_words)+1):
+            for i in range(1, len(key_words)-len(value_words)):
+                command += ", "
+                command += key_words[i]
+
         command += " FROM teams t, players p"
         command += " WHERE t.team_name = p.team_name"
-        for i in range(1, len(key_words)):
+        j = 0
+        for i in range(len(key_words)-len(value_words), len(key_words)):
             command += " AND " + key_words[i]
-            if (i > len(value_words)):
+            if (j > len(value_words)):
                 print("ERROR, VALUES NOT PROVIDED")
                 command += "*"
             else:
-                if (value_words[i-1][0] != "<" and value_words[i-1][0] != ">"):
+                if (value_words[j][0] != "<" and value_words[j][0] != ">"):
                     command += "=\""
-                    command += (value_words[i-1].lower())
+                    command += (value_words[j].lower())
                     command += "\""
                 else:
-                    command += (value_words[i - 1].lower())
+                    command += (value_words[j].lower())
+            j += 1
 
         print(command)
         # cursor = conn.execute(command)
